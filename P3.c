@@ -7,8 +7,10 @@
 //打印菜单
 void printMenu()
 {
+	system("cls");
     printf("\n------------ Scenie Spot Information System ------------\n\n");
     printf("1. Query the shortest way.\n");
+	printf("2. Printmap.\n");
     printf("0. Quit System.\n");
     printf("\nPlease input the number of the operation you want to perform: ");
 }
@@ -112,7 +114,6 @@ void dijkstra(int graph[][V_SIZE], int n, int start, int dist[])
 	free(path);
 	free(shortest);
 	free(mark);
-	return;
 }
 
 // 1. 求给定起点的最短路径
@@ -129,7 +130,30 @@ void shortestWay(int graph[][V_SIZE], int n, int dist[])
 	{
 		printf("Place not exist!\n");
 	}
-	
+}
+
+// 2. 打印地图
+void printMap()
+{
+	printf("(0)-------------(6)-------------(7)    \n");
+	printf(" |      511      |      349      |     \n");
+	printf(" |               |               |     \n");
+	printf(" |842            |534            |651  \n");
+	printf(" |               |               |     \n");
+	printf(" |               |               |     \n");
+	printf("(1)             (5)             (8)    \n");
+	printf(" |               |               |     \n");
+	printf(" |               |               |     \n");
+	printf(" |967            |409            |825  \n");
+	printf(" |               |               |     \n");
+	printf(" |               |               |     \n");
+	printf("(2)-------------(4)-------------(9)    \n");
+	printf(" |      902      |      367      |     \n");
+	printf(" |               |               |     \n");
+	printf(" |               |672            |622  \n");
+	printf(" |               |               |     \n");
+	printf(" | 607           |               |     \n");
+	printf(" +--------------(3)            (10)    \n");
 }
 
 int main()
@@ -166,6 +190,8 @@ int main()
         {
             case 0: return 0;
             case 1: shortestWay(W, V_SIZE, dist); break;
+			case 2: printMap(); break;
+			default: printf("Wrong operation!\n"); break;
         }
         system("pause");
     }
