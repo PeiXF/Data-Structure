@@ -63,14 +63,14 @@ void all_path(BiTNode *p)
 
 int main()
 {
-    BiTNode *BiTree = NULL, *p = NULL;
+    BiTNode *BiTree = NULL;
     printf("\n------Create Binary Tree------\n\n");
     BiTree = create_tree(BiTree);
     if (BiTree == NULL)
     {
         printf("Empty Binary Tree!\n");
     }
-    addparent(BiTree, p);
+    addparent(BiTree, NULL);
     all_path(BiTree);
     system("pause");
     return 0;
