@@ -12,6 +12,7 @@ typedef struct LNode
 
 void printTitle()
 {
+    system("cls");
     printf("\n----------------- Student Score Query System -----------------\n\n");
     printf("1.Show the scores of all students.\n");
     printf("2.Insert the record of a student's score.\n");
@@ -23,7 +24,52 @@ void printTitle()
     printf("\nPlease input the number of the operation you want to perform: ");
 }
 
-// 链表排序
+// 找到成绩最低的结点
+LNode *minList(LNode *LinkList)
+{
+    LNode *minp = LinkList, *p = LinkList->next;
+    while (p != NULL)
+    {
+        if (minp->score > p->score)
+        {
+            minp = p;
+        }
+        p = p->next;
+    }
+    return minp;
+}
+
+// 交换两字符串
+void swap(char **p1, char **p2)
+{
+    char *p;
+    p = *p1;
+    *p1 = *p2;
+    *p2 = p;
+}
+
+// 链表按学号选择排序
+LNode *sortList(LNode *LinkList)
+{
+    LNode *p, *q = LinkList->next;
+    LNode temp;
+    while (q->next != NULL)
+    {
+        p = minList(q);
+        if (p->score != q->score)
+        {
+            temp.Sno = q->Sno;
+            q->Sno = p->Sno;
+            p->Sno = temp.Sno;
+            temp.score = q->score;
+            q->score = p->score;
+            p->score = temp.score;
+            swap(&p->name, &q->name);
+        }
+        q = q->next;
+    }
+    return LinkList;
+}
 
 // 获取总行数
 int countLines(FILE *file)
@@ -72,6 +118,7 @@ LNode *saveData(LNode *LinkList)
         fprintf(fp, "%d\t%s\t%d\n", p->Sno, p->name, p->score);
         p = p->next;
     }
+    sortList(LinkList);
     fclose(fp);
     return LinkList;
 }
@@ -79,16 +126,12 @@ LNode *saveData(LNode *LinkList)
 // 1.显示学生成绩表
 void printTable(LNode *LinkList)
 {
-    LNode *p = LinkList;
-    FILE *fp = fopen("test.txt", "r");
-    int i, N = countLines(fp);
-    p = LinkList->next;
+    LNode *p = LinkList->next;
     while (p != NULL)
     {
         printf("%d\t%s\t%d\n", p->Sno, p->name, p->score);
         p = p->next;
     }
-    fclose(fp);
 }
 
 // 2.插入一条记录
@@ -297,6 +340,7 @@ int main()
     LNode *LinkList;
     int operation = 0;
     LinkList = importData(LinkList);
+    sortList(LinkList);
     while(1)
     {
         printTitle();
